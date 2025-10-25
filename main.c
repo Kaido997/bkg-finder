@@ -89,7 +89,7 @@ void find_combination(float measure, int max_comb, float exclusions[], int ex_si
                 counter++;
             }
             ex_size += counter;
-ii        }
+        }
         free(sub_sets);
     }
 }
