@@ -4,3 +4,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+
+[[bin]]
+name = "bkg-finder"
+path = "src/main.rs"
+
+[[bin]]
+name = "bench_rust"
+path = "src/bin/bench_rust.rs"
+
+[lib]
+name = "bkg_finder"
+path = "src/lib.rs"
