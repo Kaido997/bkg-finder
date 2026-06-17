@@ -1,13 +1,12 @@
+use bkg_finder::bkg;
 use std::env;
 use std::process;
 use std::time::{Duration, Instant};
-use bkg_finder::bkg;
 
 const EPSILON: f64 = 0.00001;
 
 const ALL_MEASURES: &[f64] = &[
-    0.0500, 0.1000, 0.2000, 0.2500, 0.5000, 0.7500, 0.8000,
-    1.0000, 2.0000, 3.0000, 4.0000,
+    0.0500, 0.1000, 0.2000, 0.2500, 0.5000, 0.7500, 0.8000, 1.0000, 2.0000, 3.0000, 4.0000,
 ];
 
 fn validate(combo: &[f64], measure: f64) -> bool {
