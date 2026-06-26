@@ -17,7 +17,7 @@
 - [x] Parse Rust CLI flags so `-max` and `-ex` match the C version.
 - [x] Replace `dbg!` CLI output with stable user-facing stdout.
 - [ ] Fix the recursive base case so block index `0` can be used safely.
-- [ ] Make pruning tolerant: compare `current_sum > target + EPSILON`.
+- [x] Make pruning tolerant: compare `current_sum > target + EPSILON`.
 - [x] Reset `upperbound_count` at the start of each public search.
 - [ ] Stop cloning `self.bkg_set` on every search call.
 - [ ] Split "found a combination" from "hit recursion limit" in the recursive return path.

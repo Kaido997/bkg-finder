@@ -58,8 +58,7 @@ impl Runtime {
         &mut self,
         target: f64,
         current_sum: f64,
-        index: usize,
-        blocks: &[f64],
+        mut index: usize,
         sub_sets: &mut [f64],
         sub_sets_size: usize,
         exclusions: &mut [f64],
@@ -76,13 +75,18 @@ impl Runtime {
             return false;
         }
 
+        if index > 0 {
+            index -= 1;
+        } else {
+            return false;
+        }
+
         for j in 0..ex_size {
-            if f_comp(blocks[index], exclusions[j]) {
+            if f_comp(self.bkg_set[index], exclusions[j]) {
                 return self.bkg_find_rbt(
                     target,
                     current_sum,
-                    index - 1,
-                    blocks,
+                    index,
                     sub_sets,
                     sub_sets_size,
                     exclusions,
@@ -91,11 +95,8 @@ impl Runtime {
             }
         }
 
-        if index == 0 {
-            return false;
-        }
 
-        sub_sets[sub_sets_size] = blocks[index];
+        sub_sets[sub_sets_size] = self.bkg_set[index];
 
         if f_comp(current_sum, target) {
             sub_sets[sub_sets_size] = 0.0;
@@ -104,9 +105,8 @@ impl Runtime {
 
         if self.bkg_find_rbt(
             target,
-            current_sum + blocks[index],
-            index - 1,
-            blocks,
+            current_sum + self.bkg_set[index],
+            index,
             sub_sets,
             sub_sets_size + 1,
             exclusions,
@@ -118,8 +118,7 @@ impl Runtime {
         if self.bkg_find_rbt(
             target,
             current_sum,
-            index - 1,
-            blocks,
+            index,
             sub_sets,
             sub_sets_size,
             exclusions,
@@ -127,7 +126,6 @@ impl Runtime {
         ) {
             return true;
         }
-
         false
     }
 
@@ -149,7 +147,6 @@ impl Runtime {
                 measure,
                 0.0,
                 80,
-                &self.bkg_set.clone(),
                 &mut sub_sets,
                 0,
                 exclusions,
