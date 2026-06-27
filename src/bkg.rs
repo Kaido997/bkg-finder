@@ -64,7 +64,13 @@ impl Runtime {
         self._exclusions = v;
     }
 
-    fn bkg_find_rbt(&mut self, target: f64, current_sum: f64, mut bkg_set_idx: usize) -> bool {
+    fn bkg_find_rbt(
+        &mut self,
+        target: f64,
+        current_sum: f64,
+        mut bkg_set_idx: usize,
+        exclusions: &[f64],
+    ) -> bool {
         self.upperbound_count += 1;
 
         if self.upperbound_count >= UPPER_BOUND_RECURSION_LIMIT {
@@ -90,19 +96,24 @@ impl Runtime {
 
         bkg_set_idx = prev_bkg_set_idx;
 
-        for (j, _) in self._exclusions.iter().enumerate() {
-            if f_comp(self.bkg_set[bkg_set_idx], self._exclusions[j]) {
-                return self.bkg_find_rbt(target, current_sum, bkg_set_idx);
+        for (j, _) in exclusions.iter().enumerate() {
+            if f_comp(self.bkg_set[bkg_set_idx], exclusions[j]) {
+                return self.bkg_find_rbt(target, current_sum, bkg_set_idx, exclusions);
             }
         }
 
         self._sub_sets.push(self.bkg_set[bkg_set_idx]);
-        if self.bkg_find_rbt(target, current_sum + self.bkg_set[bkg_set_idx], bkg_set_idx) {
+        if self.bkg_find_rbt(
+            target,
+            current_sum + self.bkg_set[bkg_set_idx],
+            bkg_set_idx,
+            exclusions,
+        ) {
             return true;
         }
 
         self._sub_sets.pop();
-        self.bkg_find_rbt(target, current_sum, bkg_set_idx)
+        self.bkg_find_rbt(target, current_sum, bkg_set_idx, exclusions)
     }
 
     pub fn find_combination(
@@ -111,15 +122,16 @@ impl Runtime {
         max_comb: usize,
     ) -> Vec<(ErrorType, Vec<f64>)> {
         let mut combinations = Vec::with_capacity(max_comb);
+        let mut exclusions = self._exclusions.clone();
 
         for _ in 0..max_comb {
             self.error = ErrorType::None;
             self.upperbound_count = 0;
             self._sub_sets.clear();
 
-            if self.bkg_find_rbt(measure, 0.0, 81) {
+            if self.bkg_find_rbt(measure, 0.0, 81, &exclusions) {
                 combinations.push((self.error.clone(), self._sub_sets.clone()));
-                self._exclusions.extend(&self._sub_sets);
+                exclusions.extend(&self._sub_sets);
             } else {
                 let error = if self.error == ErrorType::None {
                     ErrorType::FoundNothing
@@ -129,7 +141,6 @@ impl Runtime {
                 combinations.push((error, Vec::new()));
             }
         }
-
         combinations
     }
 }

@@ -29,3 +29,31 @@ Recursively find possible combination for a given measure by default 2 each comb
 
 - Add Metric support;
 - Add different block gauges sets support;
+
+## Implementations
+
+- `main.c` and `bkg.h` are the original C/native implementation.
+- `src/` contains the Rust implementation used by the CLI, tests, benchmarks,
+  and browser build.
+- `web/` contains a small GitHub Pages frontend. The generated `web/pkg/`
+  WebAssembly package is built by CI with `wasm-pack`.
+
+## WebAssembly
+
+Build the browser package locally:
+
+```bash
+wasm-pack build --target web --out-dir web/pkg --release
+```
+
+Then serve `web/` with any static file server:
+
+```bash
+cd web
+python3 -m http.server 4176 --bind 127.0.0.1
+```
+
+Open `http://127.0.0.1:4176/`. The web app includes a PWA manifest and service
+worker, so supported mobile browsers can install it after the first load.
+Pushing to `main` runs `.github/workflows/pages.yml` and deploys the same static
+app to GitHub Pages.

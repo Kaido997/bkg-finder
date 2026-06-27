@@ -36,12 +36,10 @@ fn main() {
             };
             if j == 0 {
                 print!("| {:.4} |", block);
-            } else if j == combination.1.len() - 1 {
-                print!(" {:.4} |", block);
             } else {
                 print!(" {:.4} |", block);
             }
         }
-        print!("\n");
+        println!();
     }
 }

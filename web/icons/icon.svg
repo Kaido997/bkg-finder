@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#245c42"/>
+  <rect x="96" y="132" width="320" height="72" rx="12" fill="#f4f6f2"/>
+  <rect x="96" y="220" width="240" height="72" rx="12" fill="#dbe8df"/>
+  <rect x="96" y="308" width="176" height="72" rx="12" fill="#b8d1c3"/>
+  <text x="256" y="462" text-anchor="middle" font-family="Arial, sans-serif" font-size="64" font-weight="800" fill="#f4f6f2">BKG</text>
+</svg>

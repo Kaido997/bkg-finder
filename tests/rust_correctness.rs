@@ -105,3 +105,17 @@ fn test_failed_run_reports_error() {
     assert_eq!(combinations[0].0, bkg::ErrorType::FoundNothing);
     assert!(combinations[0].1.is_empty());
 }
+#[test]
+fn test_repeated_searches_do_not_reuse_generated_exclusions() {
+    let mut runtime = bkg::init_bkg_set();
+
+    let first = runtime.find_combination(4.0000, 1);
+    let second = runtime.find_combination(4.0000, 1);
+
+    assert_eq!(first.len(), 1);
+    assert_eq!(second.len(), 1);
+    assert_eq!(first[0].0, bkg::ErrorType::None);
+    assert_eq!(second[0].0, bkg::ErrorType::None);
+    assert_eq!(first[0].1, second[0].1);
+    assert!((sum_combination(&second[0].1) - 4.0000).abs() < EPSILON);
+}

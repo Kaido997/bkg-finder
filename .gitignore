@@ -1,11 +1,26 @@
-bkg.dSYM
-bkg
-.o
+# Rust build output
+/target/
 
-main
-bkg-rust
+# Generated WebAssembly package
+/web/pkg/
 
+# Native build outputs
+/bkg
+/bkg-rust
+/main
+*.o
+*.dSYM/
 
-# Added by cargo
+# Local agent/tool state
+/.agents/
+/.codex/
+/.serena/
+/AGENTS.md
+/session-*.md
 
-/target
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
