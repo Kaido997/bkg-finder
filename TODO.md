@@ -16,14 +16,14 @@
 - [x] Run `cargo fmt` and keep the Rust code formatted.
 - [x] Parse Rust CLI flags so `-max` and `-ex` match the C version.
 - [x] Replace `dbg!` CLI output with stable user-facing stdout.
-- [ ] Fix the recursive base case so block index `0` can be used safely.
+- [x] Fix the recursive base case so block index `0` can be used safely.
 - [x] Make pruning tolerant: compare `current_sum > target + EPSILON`.
 - [x] Reset `upperbound_count` at the start of each public search.
-- [ ] Stop cloning `self.bkg_set` on every search call.
-- [ ] Split "found a combination" from "hit recursion limit" in the recursive return path.
-- [ ] Add bounds checks or dynamic storage for `sub_sets`, `item`, and `exclusions`.
-- [ ] Add regression tests for `0.1001`, `0.1020`, `-max`, and `-ex`.
-- [ ] Re-run the benchmark with the corrected edge cases included.
+- [x] Stop cloning `self.bkg_set` on every search call.
+- [x] Split "found a combination" from "hit recursion limit" in the recursive return path.
+- [x] Add bounds checks or dynamic storage for `sub_sets`, `item`, and `exclusions`.
+- [x] Add regression tests for `0.1001`, `0.1020`, `-max`, and `-ex`.
+- [x] Re-run the benchmark with the corrected edge cases included.
 
 ### Notes
 

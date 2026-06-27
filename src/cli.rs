@@ -3,7 +3,6 @@ use clap::Parser;
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 pub struct Cli {
-
     /// The measure in which the combination is calculated
     pub measure: f64,
 

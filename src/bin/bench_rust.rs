@@ -23,9 +23,9 @@ fn run_bench(count: usize) -> (usize, usize, Duration) {
         let measure = ALL_MEASURES[i % ALL_MEASURES.len()];
 
         let mut rt = bkg::init_bkg_set();
-        let mut exclusions = vec![0.0; 64];
-        match rt.find_combination(measure, 1, &mut exclusions, 0) {
-            Ok(combinations) if validate(&combinations[0], measure) => ok += 1,
+        let combinations = rt.find_combination(measure, 1);
+        match combinations.first() {
+            Some((bkg::ErrorType::None, combination)) if validate(combination, measure) => ok += 1,
             _ => fail += 1,
         }
     }
